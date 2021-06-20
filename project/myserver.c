@@ -1,5 +1,5 @@
 /* A simple web server in the internet domain using HTTP and TCP
- * Usage: ./myserver [port number] (E.g. ./myserver 10000) 
+ * Usage: ./myserver [port number] (E.g. ./myserver 10000)
 */
 #include <stdio.h>
 #include <string.h>
@@ -32,8 +32,10 @@ void find_mime(char *content_type, char *uri) {
 		strcpy(content_type, "text/html");
 	else if (strcmp(ext, ".gif") == 0)
 		strcpy(content_type, "image/gif");
-	else if (strcmp(ext, ".jpg") == 0|| strcmp(ext, ".jpeg") == 0)
+	else if (strcmp(ext, ".jpg") == 0 || strcmp(ext, ".jpeg") == 0)
 		strcpy(content_type, "image/jpeg");
+	else if (strcmp(ext, ".ico") == 0)
+		strcpy(content_type, "image/ico");
 	else if (strcmp(ext, ".mp3") == 0)
 		strcpy(content_type, "audio/mpeg");
 	else if (strcmp(ext, ".pdf") == 0)
@@ -148,7 +150,7 @@ void http_handler(int cli_sockfd) {
 
 
 
-	
+
 
 int main(int argc, char *argv[]) {
 	int portno, pid;
@@ -190,13 +192,13 @@ int main(int argc, char *argv[]) {
 		error("ERROR: Binding\n");
 		exit(1);
 	}
-	
+
 	// Listening for socket connections. Backlog queue (Connections to wait) is 5
 	if (listen(serv_sockfd, 5) < 0) {
 		error("ERROR: Listening\n");
 		exit(1);
 	}
-	
+
 	// Handle the child process not to be zombie process
 	signal(SIGCHLD, SIG_IGN);
 
